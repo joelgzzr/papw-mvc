@@ -1,0 +1,84 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TuTienda</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <img alt="image" class="rounded-circle" src="img/a1.jpg" height="100" width="100"/>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="block m-t-xs font-bold">Joel</span>
+                            <span class="text-muted text-xs block">Gestion de articulos <b class="caret"></b></span>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a class="dropdown-item" href="agregar.php">Agregar</a></li>
+                                <li><a class="dropdown-item" href="editar.php">Modificar</a></li>
+                                <li><a class="dropdown-item" href="eliminar.php">Eliminar</a></li>
+                                <li><a class="dropdown-item" href="ofertas.php">Ofertas</a></li>
+                                <li><a class="dropdown-item" href="borradores.php">Publicar Borrador</a></li>
+                            </ul>
+                        </a>
+                    </div>
+                    <div class="logo-element">
+                        AnS
+                    </div>
+                </li>
+                <li>
+                    <a href="home.php"><i class="fa fa-th-large"></i> <span class="nav-label">Home</span></a>
+                </li>
+                <li>
+                    <a href="home.php#vendidos"><i class="fa fa-th-large"></i> <span class="nav-label">Mas Vendidos</span></a>
+                </li>
+                <li>
+                    <a href="home.php#vistos"><i class="fa fa-th-large"></i> <span class="nav-label">Mas Vistos</span></a>
+                </li>
+                <li>
+                    <a href="home.php#calificados"><i class="fa fa-th-large"></i> <span class="nav-label">Mejor Calificados</span></a>
+                </li>
+                <li>
+                    <a href="carrito.php"><i class="fa fa-th-large"></i> <span class="nav-label">Carrito</span></a>
+                </li>
+                <li>
+                    <a href="historial.php"><i class="fa fa-th-large"></i> <span class="nav-label">Historial de Compras</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top " role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    <form role="search" class="navbar-form-custom" action="search.php">
+                        <div class="form-group">
+                            <input type="text" placeholder="Busca algo..." class="form-control" name="search" id="top-search">
+                        </div>
+                    </form>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <span class="m-r-sm text-muted welcome-message">Bienvenido a TuTienda</span>
+                    </li>
+                    <li>
+                        <a href="back-end/users/logout.php">
+                            <i class="fa fa-sign-out"></i> Salir
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
