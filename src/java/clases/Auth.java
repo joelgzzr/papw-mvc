@@ -33,14 +33,15 @@ public class Auth {
             Class.forName(db.getDriver());
             con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
             sql = "CALL selectAllFromUser(?)";
-            pst = con.prepareStatement(sql);
-            pst.setString(1, email);
-            rs = pst.executeQuery();
+            cst = con.prepareCall(sql);
+            cst.setString(1, email);
+            rs = cst.executeQuery();
             
             while(rs.next()){
                 dbPassword = rs.getString("password");
             }
             
+            cst.close();
             con.close();
             rs.close();
             
@@ -50,9 +51,41 @@ public class Auth {
         }
     }
     
+    public User getUserFromDatabase(String email){
+        User retrievedUser = null;
+        try {
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
+            sql = "CALL selectAllFromUser(?)";
+            cst = con.prepareCall(sql);
+            cst.setString(1, email);
+            
+            rs = cst.executeQuery();
+            
+            while(rs.next()){
+                retrievedUser = new User(
+                        rs.getString("username"),
+                        rs.getString("fullname"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("phone"),
+                        rs.getString("address"),
+                        rs.getBinaryStream("profilepic"),
+                        rs.getBinaryStream("cover")
+                );
+            }
+            
+            cst.close();
+            con.close();
+            rs.close();
+            
+            return retrievedUser;
+        } catch (ClassNotFoundException | SQLException e) {
+            return null;
+        }
+    }
+    
     public boolean register(User registerUser){
-        InputStream avatar = null;
-        InputStream cover = null;
         try {
             Class.forName(db.getDriver());
             con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
@@ -64,11 +97,8 @@ public class Auth {
             cst.setString(4, registerUser.getPassword());
             cst.setString(5, registerUser.getPhone());
             cst.setString(6, registerUser.getAddress());
-            
-            avatar = new FileInputStream(registerUser.getAvatar());
-            cover = new FileInputStream(registerUser.getCover());
-            cst.setBinaryStream(7, avatar);
-            cst.setBinaryStream(8, cover);
+            cst.setBinaryStream(7, registerUser.getAvatar());
+            cst.setBinaryStream(8, registerUser.getCover());
             
             cst.execute();
             
@@ -78,11 +108,6 @@ public class Auth {
             return true;
         } catch (ClassNotFoundException | SQLException e) {
             return false;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        } 
+        }
     }
-    
-    
 }

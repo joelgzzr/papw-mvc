@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.User;
 import com.oreilly.servlet.*;
+import java.io.FileInputStream;
 
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
@@ -36,6 +37,8 @@ public class RegisterServlet extends HttpServlet {
     String address;
     File avatar = null;
     File cover = null;
+    FileInputStream avatarStream;
+    FileInputStream coverStream;
     
     RequestDispatcher rd = null;
 
@@ -66,8 +69,10 @@ public class RegisterServlet extends HttpServlet {
             address = req.getParameter("address");
             avatar = req.getFile("avatar");
             cover = req.getFile("cover");
+            avatarStream = new FileInputStream(avatar);
+            coverStream = new FileInputStream(cover);
 
-            registerUser = new User(username, fullname, email, password, phone, address, avatar, cover);
+            registerUser = new User(username, fullname, email, password, phone, address, avatarStream, coverStream);
         }
     }
 
@@ -104,8 +109,9 @@ public class RegisterServlet extends HttpServlet {
         
         if(registerUser != null){
             success = auth.register(registerUser);
-            request.setAttribute("username", registerUser.getUsername());
-            request.setAttribute("email", registerUser.getEmail());
+            if(success){
+                request.setAttribute("user", registerUser);
+            }
             rd = request.getRequestDispatcher("register.jsp");
         }
         

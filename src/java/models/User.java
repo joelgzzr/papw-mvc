@@ -6,6 +6,8 @@
 package models;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class User {
     private String username;
@@ -14,10 +16,10 @@ public class User {
     private String password;
     private String phone;
     private String address;
-    private File avatar;
-    private File cover;
+    private InputStream avatar;
+    private InputStream cover;
 
-    public User(String username, String fullname, String email, String password, String phone, String address, File avatar, File cover) {
+    public User(String username, String fullname, String email, String password, String phone, String address, InputStream avatar, InputStream cover) {
         this.username = username;
         this.fullname = fullname;
         this.email = email;
@@ -52,13 +54,46 @@ public class User {
         return address;
     }
 
-    public File getAvatar() {
+    public InputStream getAvatar() {
         return avatar;
     }
 
-    public File getCover() {
+    public InputStream getCover() {
         return cover;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setAvatar(InputStream avatar) {
+        this.avatar = avatar;
+    }
+
+    public void setCover(InputStream cover) {
+        this.cover = cover;
+    }
+    
     
     
 }

@@ -1,3 +1,4 @@
+<%@page import="models.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -58,18 +59,14 @@
     
     <%
         HttpSession webSession = request.getSession();
-        String username;
-        String email;
+        User user;
 
-        if(request.getAttribute("username") != null){
-            username = (String)request.getAttribute("username");
-            webSession.setAttribute("username", username);
-            
-            if(request.getAttribute("email") != null){
-                email = (String)request.getAttribute("email");
-                webSession.setAttribute("email", email);
-                response.sendRedirect("home.jsp");
-            }
+        if(request.getAttribute("user") != null){
+            user = (User)request.getAttribute("user");
+            webSession.setAttribute("user", user);
+            response.sendRedirect("home.jsp");
+        } else if(webSession.getAttribute("user") != null){
+            response.sendRedirect("home.jsp");
         }
     %>
 

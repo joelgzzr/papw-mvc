@@ -1,3 +1,4 @@
+<%@page import="models.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true" %>
 <!DOCTYPE html>
@@ -26,14 +27,14 @@
             </div>
             <div class="col-md-6">
                 <div class="ibox-content">
-                    <form class="m-t" role="form" method="POST" action="back-end/users/login.php">
+                    <form class="m-t" role="form" method="POST" action="login">
                         <div class="form-group">
                             <input type="email" name="email" class="form-control" placeholder="Username" required>
                         </div>
                         <div class="form-group">
                             <input type="password" name="password" class="form-control" placeholder="Password" required>
                         </div>
-                        <button type="submit" class="btn btn-primary block full-width m-b">Ingresar</button>
+                        <input type="submit" name="button" class="btn btn-primary block full-width m-b" value="Ingresar">
 
                         <p class="text-muted text-center">
                             <small>Aun no tienes una cuenta?</small>
@@ -53,5 +54,20 @@
             </div>
         </div>
     </div>
+    
+    <%
+        HttpSession webSession = request.getSession();
+        User user;
+        
+        if(request.getParameter("logout") != null){
+            session.invalidate();
+        }else if(request.getAttribute("user") != null){
+            user = (User)request.getAttribute("user");
+            webSession.setAttribute("user", user);
+            response.sendRedirect("home.jsp");
+        } else if(webSession.getAttribute("user") != null){
+            response.sendRedirect("home.jsp");
+        }
+    %>
 </body>
 </html>

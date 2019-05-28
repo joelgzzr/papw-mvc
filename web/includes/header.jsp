@@ -1,4 +1,15 @@
+<%@page import="models.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession webSession = request.getSession();
+    User loggedIn = null;
+    
+    if(webSession.getAttribute("user") == null){
+        response.sendRedirect("index.jsp");
+    } else {
+         loggedIn = (User)webSession.getAttribute("user");
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +31,9 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element">
-                        <img alt="image" class="rounded-circle" src="img/a1.jpg" height="100" width="100"/>
+                        <img alt="image" class="rounded-circle" src="/img/a1.jpg" height="100" width="100"/>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="block m-t-xs font-bold">Joel</span>
+                            <span class="block m-t-xs font-bold"><%= loggedIn.getFullname() %></span>
                             <span class="text-muted text-xs block">Gestion de articulos <b class="caret"></b></span>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a class="dropdown-item" href="agregar.php">Agregar</a></li>
@@ -34,7 +45,7 @@
                         </a>
                     </div>
                     <div class="logo-element">
-                        AnS
+                        TuT
                     </div>
                 </li>
                 <li>
@@ -75,7 +86,7 @@
                         <span class="m-r-sm text-muted welcome-message">Bienvenido a TuTienda</span>
                     </li>
                     <li>
-                        <a href="back-end/users/logout.php">
+                        <a href="index.jsp?logout=true">
                             <i class="fa fa-sign-out"></i> Salir
                         </a>
                     </li>
