@@ -42,7 +42,7 @@
                     <input type="text" name="address" class="form-control" placeholder="Direccion (No Obligatorio)">
                 </div>
                 <div class="form-group">
-                    Imagen de Pefil: <input type="file" name="profile" class="form-control">
+                    Imagen de Pefil: <input type="file" name="avatar" class="form-control">
                 </div>
                 <div class="form-group">
                     Portada: <input type="file" name="cover" class="form-control">

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +20,7 @@ public class Auth {
     String sql = "";
     Connection con;
     PreparedStatement pst;
+    CallableStatement cst;
     ResultSet rs;
 
     public Auth() {
@@ -49,29 +51,29 @@ public class Auth {
     }
     
     public boolean register(User registerUser){
-        FileInputStream avatar = null;
-        FileInputStream cover = null;
+        InputStream avatar = null;
+        InputStream cover = null;
         try {
             Class.forName(db.getDriver());
             con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
             sql = "CALL insertIntoUser(?, ?, ?, ?, ?, ?, ?, ?)";
-            pst = con.prepareStatement(sql);
-            pst.setString(1, registerUser.getUsername());
-            pst.setString(2, registerUser.getFullname());
-            pst.setString(3, registerUser.getEmail());
-            pst.setString(4, registerUser.getPassword());
-            pst.setString(5, registerUser.getPhone());
-            pst.setString(6, registerUser.getAddress());
+            cst = con.prepareCall(sql);
+            cst.setString(1, registerUser.getUsername());
+            cst.setString(2, registerUser.getFullname());
+            cst.setString(3, registerUser.getEmail());
+            cst.setString(4, registerUser.getPassword());
+            cst.setString(5, registerUser.getPhone());
+            cst.setString(6, registerUser.getAddress());
             
             avatar = new FileInputStream(registerUser.getAvatar());
             cover = new FileInputStream(registerUser.getCover());
-            pst.setBinaryStream(7, avatar);
-            pst.setBinaryStream(8, cover);
+            cst.setBinaryStream(7, avatar);
+            cst.setBinaryStream(8, cover);
             
-            rs = pst.executeQuery();
+            cst.execute();
             
+            cst.close();
             con.close();
-            rs.close();
             
             return true;
         } catch (ClassNotFoundException | SQLException e) {

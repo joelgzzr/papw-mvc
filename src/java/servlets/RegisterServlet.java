@@ -53,23 +53,21 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            MultipartRequest req = new MultipartRequest(request, "img/", 5000);
-            
-            if(req.getParameter("button") != null){
-                username = req.getParameter("name");
-                fullname = req.getParameter("fullname");
-                email = req.getParameter("email");
-                password = req.getParameter("password");
-                phone = req.getParameter("phone");
-                address = req.getParameter("address");
-                avatar = new File(req.getParameter("avatar"));
-                cover = new File(req.getParameter("cover"));
-                
-                registerUser = new User(username, fullname, email, password, phone, address, avatar, cover);
-            }
-            
+        /* TODO output your page here. You may use following sample code. */
+        String path = getServletContext().getRealPath("/img/");
+        MultipartRequest req = new MultipartRequest(request, path, 10485760);
+
+        if(req.getParameter("button") != null){
+            username = req.getParameter("username");
+            fullname = req.getParameter("fullname");
+            email = req.getParameter("email");
+            password = req.getParameter("password");
+            phone = req.getParameter("phone");
+            address = req.getParameter("address");
+            avatar = req.getFile("avatar");
+            cover = req.getFile("cover");
+
+            registerUser = new User(username, fullname, email, password, phone, address, avatar, cover);
         }
     }
 
