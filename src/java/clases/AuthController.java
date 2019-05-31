@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.User;
 
-public class Auth {
+public class AuthController {
     Database db = new Database();
     String sql = "";
     Connection con;
@@ -23,7 +23,7 @@ public class Auth {
     CallableStatement cst;
     ResultSet rs;
 
-    public Auth() {
+    public AuthController() {
         
     }
     
@@ -69,10 +69,12 @@ public class Auth {
                         rs.getString("email"),
                         rs.getString("password"),
                         rs.getString("phone"),
-                        rs.getString("address"),
-                        rs.getBinaryStream("profilepic"),
-                        rs.getBinaryStream("cover")
+                        rs.getString("address")
                 );
+                
+                retrievedUser.setId(rs.getInt("id"));
+                retrievedUser.setAvatarString(rs.getString("profilepic"));
+                retrievedUser.setCoverString(rs.getString("cover"));
             }
             
             cst.close();

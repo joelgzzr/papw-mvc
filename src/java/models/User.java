@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class User {
+    private int id;
     private String username;
     private String fullname;
     private String email;
@@ -18,18 +19,27 @@ public class User {
     private String address;
     private InputStream avatar;
     private InputStream cover;
+    private String avatarString;
+    private String coverString;
 
-    public User(String username, String fullname, String email, String password, String phone, String address, InputStream avatar, InputStream cover) {
+    public User(String username, String fullname, String email, String password, String phone, String address) {
+        this.id = 0;
         this.username = username;
         this.fullname = fullname;
         this.email = email;
         this.password = password;
         this.phone = phone;
         this.address = address;
-        this.avatar = avatar;
-        this.cover = cover;
+        this.avatar = null;
+        this.cover = null;
+        this.avatarString = "";
+        this.coverString = "";
     }
 
+    public int getId(){
+        return id;
+    }
+    
     public String getUsername() {
         return username;
     }
@@ -61,7 +71,19 @@ public class User {
     public InputStream getCover() {
         return cover;
     }
+    
+    public String getAvatarString() {
+        return avatarString;
+    }
 
+    public String getCoverString() {
+        return coverString;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public void setUsername(String username) {
         this.username = username;
     }
@@ -93,7 +115,12 @@ public class User {
     public void setCover(InputStream cover) {
         this.cover = cover;
     }
-    
-    
-    
+
+    public void setAvatarString(String avatarString) {
+        this.avatarString = avatarString;
+    }
+
+    public void setCoverString(String coverString) {
+        this.coverString = coverString;
+    }
 }

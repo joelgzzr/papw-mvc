@@ -5,7 +5,7 @@
  */
 package servlets;
 
-import clases.Auth;
+import clases.AuthController;
 import models.Database;
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +29,7 @@ import java.io.FileInputStream;
 public class RegisterServlet extends HttpServlet {
     
     User registerUser = null;
+    User loginUser = null;
     String username;
     String fullname;
     String email;
@@ -72,7 +73,9 @@ public class RegisterServlet extends HttpServlet {
             avatarStream = new FileInputStream(avatar);
             coverStream = new FileInputStream(cover);
 
-            registerUser = new User(username, fullname, email, password, phone, address, avatarStream, coverStream);
+            registerUser = new User(username, fullname, email, password, phone, address);
+            registerUser.setAvatar(avatarStream);
+            registerUser.setCover(coverStream);
         }
     }
 
@@ -105,12 +108,15 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        Auth auth = new Auth();
+        AuthController auth = new AuthController();
         
         if(registerUser != null){
             success = auth.register(registerUser);
             if(success){
-                request.setAttribute("user", registerUser);
+                loginUser = auth.getUserFromDatabase(email);
+                if(loginUser != null){
+                    request.setAttribute("user", loginUser);
+                }
             }
             rd = request.getRequestDispatcher("register.jsp");
         }

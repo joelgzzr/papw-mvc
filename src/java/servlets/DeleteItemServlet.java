@@ -5,31 +5,26 @@
  */
 package servlets;
 
-import clases.AuthController;
+import clases.ItemController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.User;
 
 /**
  *
  * @author joelg
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "DeleteItemServlet", urlPatterns = {"/delete-item"})
+public class DeleteItemServlet extends HttpServlet {
     
-    String email;
-    String password;
-    User loginUser;
+    int id = 0;
     
     boolean success;
-    
-    RequestDispatcher rd = null;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,9 +39,9 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         if(request.getParameter("button") != null){
-            email = request.getParameter("email");
-            password = request.getParameter("password");
+            id = Integer.parseInt(request.getParameter("item"));
         }
+        
         
     }
 
@@ -78,20 +73,14 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        AuthController auth = new AuthController();
+        ItemController ic = new ItemController();
         
-        if(email != null && password != null){
-            success = auth.validate(email, password);
+        if(id != 0) {
+            success = ic.deleteItem(id);
             if(success){
-                loginUser = auth.getUserFromDatabase(email);
-                if(loginUser != null){
-                    request.setAttribute("user", loginUser);
-                }
+                response.sendRedirect("eliminar.jsp");
             }
-            rd = request.getRequestDispatcher("index.jsp");
         }
-        
-        rd.forward(request, response);
     }
 
     /**

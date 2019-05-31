@@ -3,9 +3,10 @@
 <%
     HttpSession webSession = request.getSession();
     User loggedIn = null;
-    
+
     if(webSession.getAttribute("user") == null){
         response.sendRedirect("index.jsp");
+        return;
     } else {
          loggedIn = (User)webSession.getAttribute("user");
     }
@@ -31,16 +32,15 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element">
-                        <img alt="image" class="rounded-circle" src="/img/a1.jpg" height="100" width="100"/>
+                        <img alt="image" class="rounded-circle" src="data:image/jpeg;base64,<%= loggedIn.getAvatarString() %>" height="100" width="100"/>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="block m-t-xs font-bold"><%= loggedIn.getFullname() %></span>
                             <span class="text-muted text-xs block">Gestion de articulos <b class="caret"></b></span>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a class="dropdown-item" href="agregar.php">Agregar</a></li>
-                                <li><a class="dropdown-item" href="editar.php">Modificar</a></li>
-                                <li><a class="dropdown-item" href="eliminar.php">Eliminar</a></li>
-                                <li><a class="dropdown-item" href="ofertas.php">Ofertas</a></li>
-                                <li><a class="dropdown-item" href="borradores.php">Publicar Borrador</a></li>
+                                <li><a class="dropdown-item" href="agregar.jsp">Agregar</a></li>
+                                <li><a class="dropdown-item" href="editar.jsp">Modificar</a></li>
+                                <li><a class="dropdown-item" href="eliminar.jsp">Eliminar</a></li>
+                                <li><a class="dropdown-item" href="borradores.jsp">Publicar Borrador</a></li>
                             </ul>
                         </a>
                     </div>
@@ -49,16 +49,16 @@
                     </div>
                 </li>
                 <li>
-                    <a href="home.php"><i class="fa fa-th-large"></i> <span class="nav-label">Home</span></a>
+                    <a href="home.jsp"><i class="fa fa-th-large"></i> <span class="nav-label">Home</span></a>
                 </li>
                 <li>
-                    <a href="home.php#vendidos"><i class="fa fa-th-large"></i> <span class="nav-label">Mas Vendidos</span></a>
+                    <a href="home.jsp#vendidos"><i class="fa fa-th-large"></i> <span class="nav-label">Mas Vendidos</span></a>
                 </li>
                 <li>
-                    <a href="home.php#vistos"><i class="fa fa-th-large"></i> <span class="nav-label">Mas Vistos</span></a>
+                    <a href="home.jsp#vistos"><i class="fa fa-th-large"></i> <span class="nav-label">Mas Vistos</span></a>
                 </li>
                 <li>
-                    <a href="home.php#calificados"><i class="fa fa-th-large"></i> <span class="nav-label">Mejor Calificados</span></a>
+                    <a href="home.jsp#calificados"><i class="fa fa-th-large"></i> <span class="nav-label">Mejor Calificados</span></a>
                 </li>
                 <li>
                     <a href="carrito.php"><i class="fa fa-th-large"></i> <span class="nav-label">Carrito</span></a>
