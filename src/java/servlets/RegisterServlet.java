@@ -34,8 +34,8 @@ public class RegisterServlet extends HttpServlet {
     String fullname;
     String email;
     String password;
-    String phone;
-    String address;
+    String phone = "";
+    String address = "";
     File avatar = null;
     File cover = null;
     FileInputStream avatarStream;
@@ -66,8 +66,12 @@ public class RegisterServlet extends HttpServlet {
             fullname = req.getParameter("fullname");
             email = req.getParameter("email");
             password = req.getParameter("password");
-            phone = req.getParameter("phone");
-            address = req.getParameter("address");
+            if(req.getParameter("phone") != null){
+                phone = req.getParameter("phone");
+            }
+            if(req.getParameter("address") != null){
+                address = req.getParameter("address");
+            }
             avatar = req.getFile("avatar");
             cover = req.getFile("cover");
             avatarStream = new FileInputStream(avatar);

@@ -29,6 +29,29 @@ public class Item {
     private String imgString1;
     private String imgString2;
     private String imgString3;
+    
+    public Item(int user, String name, String description, int category, String price, String stock) {
+        this.id = 0;
+        this.user = user;
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.price = price;
+        this.discountPrice = "";
+        this.stock = stock;
+        this.video = null;
+        this.views = 0;
+        this.sold = 0;
+        this.date = "";
+        this.draft = 0;
+        this.discount = 0;
+        this.img1 = null;
+        this.img2 = null;
+        this.img3 = null;
+        this.imgString1 = "";
+        this.imgString2 = "";
+        this.imgString3 = "";
+    }
 
     public Item(int user, String name, String description, int category, String price, String stock, int draft) {
         this.id = 0;

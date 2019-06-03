@@ -61,10 +61,10 @@
                     <a href="home.jsp#calificados"><i class="fa fa-th-large"></i> <span class="nav-label">Mejor Calificados</span></a>
                 </li>
                 <li>
-                    <a href="carrito.php"><i class="fa fa-th-large"></i> <span class="nav-label">Carrito</span></a>
+                    <a href="carrito.jsp"><i class="fa fa-th-large"></i> <span class="nav-label">Carrito</span></a>
                 </li>
                 <li>
-                    <a href="historial.php"><i class="fa fa-th-large"></i> <span class="nav-label">Historial de Compras</span></a>
+                    <a href="historial.jsp"><i class="fa fa-th-large"></i> <span class="nav-label">Historial de Compras</span></a>
                 </li>
             </ul>
         </div>
@@ -75,7 +75,7 @@
             <nav class="navbar navbar-static-top " role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                    <form role="search" class="navbar-form-custom" action="search.php">
+                    <form role="search" class="navbar-form-custom" action="search.jsp">
                         <div class="form-group">
                             <input type="text" placeholder="Busca algo..." class="form-control" name="search" id="top-search">
                         </div>

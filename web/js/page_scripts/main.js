@@ -10,7 +10,7 @@ $("#comment").keydown(function(e){
 function insertComment(itemp, userp){
     commentp = $('#comment').val();
     if(commentp !== ''){
-        $.post("/antoshop/back-end/items/addcomment.php", {
+        $.post("comment", {
             item: itemp,
             user: userp,
             comment: commentp
@@ -21,7 +21,7 @@ function insertComment(itemp, userp){
 }
 
 function addCart(userp, itemp){
-    $.post("/antoshop/back-end/items/addcart.php", {
+    $.post("add-cart", {
         item: itemp,
         user: userp,
     }, function(){
@@ -30,7 +30,7 @@ function addCart(userp, itemp){
 }
 
 function checkout(cartidp, userp, itemp){
-    $.post("/antoshop/back-end/items/checkout.php", {
+    $.post("checkout", {
         item: itemp,
         user: userp,
         cartid: cartidp
@@ -40,7 +40,7 @@ function checkout(cartidp, userp, itemp){
 }
 
 function deleteCart(cartidp){
-    $.post("/antoshop/back-end/items/deletecart.php", {
+    $.post("delete-cart", {
         cartid: cartidp
     }, function(){
         location.reload();
@@ -49,14 +49,14 @@ function deleteCart(cartidp){
 
 function getItemData(){
     itemidp = $('#editItem').val();
-    $.post("/antoshop/back-end/items/getitemdata.php", {
+    $.post("form-item", {
         itemid: itemidp
     }, function(data){
-        $('#editName').val(data[0].name);
-        $('#editCategory').val(data[0].category);
-        $('#editStock').val(data[0].stock);
-        $('#editDesc').val(data[0].description);
-        $('#editPrice').val(data[0].price);
+        $('#editName').val(data.name);
+        $('#editCategory').val(data.category);
+        $('#editStock').val(data.stock);
+        $('#editDesc').val(data.description);
+        $('#editPrice').val(data.price);
     });
 }
 
@@ -80,7 +80,7 @@ function rate(itemp, userp){
             rating = document.getElementById('swal-input1').value
         }
       }).then(()=>{
-        $.post('/antoshop/back-end/items/rateitem.php', {
+        $.post('rate-item', {
           rating: rating,
           item: itemp,
           user: userp
